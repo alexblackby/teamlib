@@ -1,0 +1,306 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: #333;
+    background: linear-gradient(0.4turn, #eff2f2, #d6d9d9);
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: #2f1eaf;
+    text-decoration: underline;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.container {
+    width: 1600px;
+    margin: 0 auto;
+}
+
+.col50 {
+    float: left;
+    width: 50%;
+}
+
+h1.title {
+    color: #34333c;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 3.8em;
+    font-weight: normal;
+    margin: 0 0 10px;
+    padding: 0;
+}
+
+.title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h2.sub-title {
+    color: #34333c;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 1.7em;
+    font-weight: 300;
+    margin: 0 0 10px;
+    padding: 0 0 0 5px;
+    max-width: 400px;
+}
+
+.left-col {
+    padding: 50px 50px 50px 50px;
+}
+
+.right-col {
+    padding: 50px 20px 50px 10px;
+}
+
+
+.books-and-people {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 550px;
+    display: block;
+    margin-top: 170px;
+}
+
+
+.main-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+
+.main-menu li {
+    float: right;
+    margin-right: 30px;
+    color: #999;
+}
+
+.main-menu a {
+    text-decoration: underline;
+    font-size: 1.05em;
+}
+
+li.main-menu-divider {
+    margin-right: 20px;
+    margin-left: -10px;
+}
+
+.main-menu-mobile {
+    display: none;
+}
+
+
+.circles-wrapper {
+    width: 740px;
+    height: 740px;
+    margin-top: 50px;
+    background: url("../img/circles.png");
+    background-size: cover;
+}
+
+
+.circles-content {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 1.3em;
+    color: #444;
+    padding: 210px 150px 20px 170px;
+}
+
+.circles-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.circles-list li {
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.circles-list b {
+    font-size: 1.3em;
+    color: #222;
+    position: absolute;
+    margin-left: -34px;
+    margin-top: -5px;
+}
+
+.btn-get-started {
+    display: block;
+    background: #219558;
+    max-width: 70%;
+    margin: 70px auto 40px;
+    text-align: center;
+    padding: 13px 10px;
+    border-radius: 10px;
+    font-size: 1.35vw;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.btn-get-started:hover {
+    background: #108950;
+}
+
+.already-member {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+@media (max-width: 1599px) {
+    body {
+        font-size: 15px;
+    }
+
+    .container {
+        width: 1400px;
+    }
+
+    .main-menu {
+        margin-right: 10px;
+    }
+
+    .books-and-people {
+        margin-top: 100px;
+        width: 500px;
+    }
+
+    .circles-wrapper {
+        width: 690px;
+        height: 690px;
+    }
+
+    .circles-content {
+        font-size: 1.2em;
+    }
+
+    .btn-get-started {
+        margin-top: 55px;
+    }
+}
+
+
+@media (max-width: 1399px) {
+    body {
+        font-size: 15px;
+    }
+
+    .container {
+        width: 1200px;
+    }
+
+    .left-col {
+        padding: 30px;
+    }
+
+    .right-col {
+        padding: 30px 10px 10px;
+    }
+
+    .main-menu {
+        margin-right: 0px;
+    }
+
+    .books-and-people {
+        margin-top: 100px;
+        width: 470px;
+    }
+
+    .circles-wrapper {
+        width: 590px;
+        height: 590px;
+    }
+
+    .circles-content {
+        padding: 170px 120px 20px 145px;
+        font-size: 1.1em;
+    }
+
+    .btn-get-started {
+        margin-top: 35px;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .container {
+        width: auto;
+    }
+
+    h1.title {
+        font-size: 3em;
+    }
+
+    h2.sub-title {
+        font-size: 1.1em;
+    }
+
+    .main-menu-mobile {
+        display: block;
+        margin-left: 7px;
+    }
+
+    .main-menu-mobile li {
+        float: left;
+        font-size: 1.3em;
+    }
+
+    .main-menu-desktop {
+        display: none;
+    }
+
+    .books-and-people {
+        width: 400px;
+        margin: 20px auto;
+    }
+
+    .col50 {
+        float: none;
+        width: 100%;
+    }
+
+    .left-col {
+        padding: 25px;
+    }
+
+    .right-col {
+        padding-top: 0;
+    }
+
+    .circles-wrapper {
+        margin: 0px auto;
+        background: white;
+        width: 96%;
+        height: auto;
+        border-radius: 50px;
+    }
+    .circles-content {
+        padding: 70px 40px 70px 70px;
+        font-size: 1em;
+    }
+    .btn-get-started {
+        font-size: 1.2em;
+    }
+    .circles-list b {
+        margin-top: -2px;
+        font-size: 1.6em;
+    }
+    .already-member {
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+        font-size: 0.9em;
+    }
+}
