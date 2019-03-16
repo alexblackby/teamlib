@@ -6,7 +6,8 @@ import validate from './validate';
 import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
 import {setCurrentUser} from "../../../store/actions/auth";
-
+import {hasCurrentUser} from '../../../store/selectors/auth';
+import {Redirect} from "react-router-dom";
 
 class LoginPage extends Component {
     constructor(props) {
@@ -26,6 +27,8 @@ class LoginPage extends Component {
     }
 
     render() {
+
+        if (this.props.hasCurrentUser) return <Redirect to="/"/>;
         return (
             <div className="form-page">
                 <Formik
@@ -39,8 +42,14 @@ class LoginPage extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        hasCurrentUser: hasCurrentUser(state),
+    };
+};
+
 const mapDispatchToProps = {
     setCurrentUser
 };
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
