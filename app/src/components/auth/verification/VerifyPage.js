@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import get from 'lodash/get';
-import {verifyEmail} from "../../../services/auth";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+import {postFormData} from "../../../services/forms";
+import {setCurrentUser} from "../../../actions/auth";
+import {connect} from "react-redux";
 
 
 class VerifyPage extends Component {
@@ -15,12 +17,14 @@ class VerifyPage extends Component {
         };
     }
 
-
     componentDidMount() {
         const verifyParams = get(this.props, 'match.params');
         this.setState({inProgress: true});
-        verifyEmail(verifyParams)
-            .then(data => this.setState({inProgress: false, success: true}))
+        postFormData('http://localhost:8080/auth/verify', verifyParams)
+            .then(data => {
+                this.setState({inProgress: false, success: true});
+                this.props.setCurrentUser(data);
+            })
             .catch(error => this.setState({inProgress: false, success: false, error}));
     }
 
@@ -34,10 +38,10 @@ class VerifyPage extends Component {
                     <div>Verification in progress...</div>
                     }
                     {success === true &&
-                    <div>Your account is verified. Now you can <Link to="/login">log in</Link>.</div>
+                    <div>Your account is verified. Now you can <Link to="/" replace={true}>start using TeamLib</Link>.</div>
                     }
                     {error &&
-                    <div><b>Verification result:</b> {error.userid}</div>
+                    <div>{error.userid}</div>
                     }
                 </div>
             </div>
@@ -45,4 +49,8 @@ class VerifyPage extends Component {
     }
 }
 
-export default VerifyPage;
+const mapDispatchToProps = {
+    setCurrentUser,
+};
+
+export default connect(null, mapDispatchToProps)(VerifyPage);

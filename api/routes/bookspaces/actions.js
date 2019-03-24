@@ -1,9 +1,18 @@
-const mongoose = require('mongoose');
-const errorFactory = require('http-errors');
+const User = require('../../models/user');
 const Bookspace = require('../../models/bookspace');
 const validationHandler = require('../../middleware/validationHandler');
 const createValidator = require('./validators/create');
 
+const setUserBookspace = (user_id) => (bookspace) => {
+    return User.findById(user_id)
+        .then(user => {
+            user.bookspace_id = bookspace._id;
+            return user.save();
+        })
+        .then(user => {
+            return {bookspace, user};
+        });
+};
 
 exports.post = [
     createValidator,
@@ -14,23 +23,19 @@ exports.post = [
         let newItem = new Bookspace({
             name,
             url,
+            owner_id: req.currentUser._id,
             lang: 'en',
-            signup_policy: {
-                policy_type: 'by_domain',
-                domain: 'test.com'
-            },
-            book_policy: {
-                policy_type: 'many_to_many'
-            }
         });
 
-        newItem.save(err => {
-            if (err) {
-                next(err);
-            }
-            else {
-                res.json({ success: true });
-            }
-        });
+        newItem.save()
+            .then(setUserBookspace(req.currentUser._id))
+            .then(({bookspace, user}) => res.json({
+                success: true,
+                data: {
+                    user: user.getDataForAPI(),
+                    bookspace,
+                }
+            }))
+            .catch(err => next(err));
     }
 ];

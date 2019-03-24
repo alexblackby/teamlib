@@ -14,7 +14,7 @@ module.exports = (config) => {
                     const codeValid = Boolean(user && user.email_verification.code === req.body.code);
                     const alreadyVerified = Boolean(user && user.email_verification.is_verified);
                     if (codeValid) {
-                        req.verifyUser = user;
+                        req.currentUser = user;
                         return Promise.resolve();
                     }
                     if (alreadyVerified) {

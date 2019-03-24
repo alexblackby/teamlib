@@ -2,17 +2,17 @@ import './styles/index.css';
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
-import AppOld from './components/app/App';
+import {BrowserRouter} from "react-router-dom";
+import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/configureStore';
-import {BrowserRouter} from "react-router-dom";
 
 const store = configureStore();
 
 render(
     <Provider store={store}>
         <BrowserRouter>
-            <AppOld/>
+            <App/>
         </BrowserRouter>
     </Provider>,
     document.getElementById('root')

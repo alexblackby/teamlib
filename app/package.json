@@ -15,7 +15,9 @@
     "react-scripts": "2.1.5",
     "react-transition-group": "^2.6.0",
     "redux": "^4.0.1",
-    "reselect": "^4.0.0"
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "url-slug": "^2.0.0"
   },
   "scripts": {
     "start-dev": "npm run react:start",

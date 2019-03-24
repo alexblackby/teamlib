@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const UserLayout = ({children}) => {
+const CatalogLayout = ({children}) => {
     return (
         <div className="container">
             <div className="header clearfix">
@@ -9,6 +9,7 @@ const UserLayout = ({children}) => {
                 <ul className="top-menu ul-nav clearfix">
                     <li className="top-bookspace"><b>EPAM Minsk</b> bookspace</li>
                     <li><a href="#">How it works</a></li>
+                    <li><Link to="/logout">Log out</Link></li>
                 </ul>
             </div>
             <div className="content-wrapper">
@@ -41,4 +42,4 @@ const UserLayout = ({children}) => {
     );
 };
 
-export default UserLayout;
+export default CatalogLayout;

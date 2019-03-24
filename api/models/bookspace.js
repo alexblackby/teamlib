@@ -12,19 +12,12 @@ const mongoose = require("mongoose");
  * - one_place (like "reception")
  */
 const schema = new mongoose.Schema({
-    url: {type: String, index: true},
+    url: {type: String, index: true, unique: true},
     name: String,
     lang: String,
-    signup_policy: {
-        policy_type: String,
-        domain: String,
-    },
-    book_policy: {
-        policy_type: String,
-        rules: String,
-    },
+    owner_id: mongoose.Schema.Types.ObjectId,
     is_active: {type: Boolean, default: true},
 });
 
 
-module.exports = mongoose.model("bookplaces", schema);
+module.exports = mongoose.model("bookspaces", schema);

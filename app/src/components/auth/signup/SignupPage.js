@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Formik} from "formik";
-import {signup} from '../../../services/auth';
 import {submitForm} from '../../../services/forms';
 import validate from '../signup/validate';
 import SignupForm from "./SignupForm";
@@ -17,8 +16,14 @@ class SignupPage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    addSubdomain(values) {
+        const hostnameParts = window.location.hostname.split('.');
+        return {...values, subdomain: (hostnameParts.length > 2) ? hostnameParts[0] : undefined};
+    }
+
     handleSubmit(values, actions) {
-        submitForm(signup, values, actions)
+        values = this.addSubdomain(values);
+        submitForm('/auth/signup', values, actions)
             .then(data => this.props.history.push('/need-verification', {email: data.user.email}))
             .catch(error => {});
     }

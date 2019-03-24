@@ -13,7 +13,7 @@ const createCheckJWT = (config) => (req, res, next) => {
             if (err) {
                 return next(new errorFactory.Unauthorized(err.name + ': ' + err.message));
             } else {
-                userModel.findOne({_id: data.userId})
+                userModel.findOne({_id: data.user_id})
                     .then(user => {
                         if (!user) {
                             return next(new errorFactory.Unauthorized('User is not found'));
@@ -21,7 +21,7 @@ const createCheckJWT = (config) => (req, res, next) => {
                         if (user.is_active === false) {
                             return next(new errorFactory.Unauthorized('User was deactivated'));
                         }
-                        req.user = user;
+                        req.currentUser = user;
                         next();
                     })
                     .catch(err => next(err));

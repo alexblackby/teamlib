@@ -7,9 +7,6 @@ const router = express.Router();
 
 const auth = createAuth(authConfig);
 router.use('/auth', auth.router);
-
-router.use('/bookspaces', require('./bookspaces'));
-
 router.use('/api', auth.check, require('./api'));
 
 router.use(function (req, res, next) {

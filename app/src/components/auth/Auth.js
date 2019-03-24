@@ -1,18 +1,43 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
-import {hasCurrentUser} from '../../store/selectors/auth';
+import {getCurrentUser, getCurrentBookspace} from '../../store/selectors/auth';
+import {refreshAuth, setTokenFromCookie} from "../../actions/auth";
+import {getCookie} from "../../utils/helpers";
 
 const Auth = (props) => {
-    return (props.needAuth && !props.hasCurrentUser)
-        ? (<Redirect to="/login"/>)
-        : props.children;
+    if (getCookie('token')) {
+        props.setTokenFromCookie();
+        return null;
+    }
+    if (props.hasTokenWithoutUser) {
+        if(!props.refreshInProgress) props.refreshAuth();
+        return null;
+    }
+    if (props.needAuth && !props.user) {
+        return <Redirect to="/login"/>;
+    }
+    if (props.needAuth && props.needBookspace && !props.bookspace)
+    {
+        return <Redirect to="/bookspace/select"/>;
+    }
+    return props.children;
 };
 
 const mapStateToProps = (state) => {
+    const hasTokenWithoutUser = Boolean(state.auth && state.auth.token && !state.auth.user);
+    const refreshInProgress = Boolean(state.auth && state.auth.refreshInProgress);
     return {
-        hasCurrentUser: hasCurrentUser(state),
+        user: getCurrentUser(state),
+        bookspace: getCurrentBookspace(state),
+        hasTokenWithoutUser,
+        refreshInProgress,
     };
 };
 
-export default connect(mapStateToProps)(Auth);
+const mapDispatchToProps = {
+    refreshAuth,
+    setTokenFromCookie,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

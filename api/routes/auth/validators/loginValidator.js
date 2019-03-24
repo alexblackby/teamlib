@@ -20,7 +20,7 @@ module.exports = (config) => {
                         if (!res) {
                             return Promise.reject('Password is incorrect');
                         }
-                        req.loginUser = user;
+                        req.currentUser = user;
                         return Promise.resolve();
                     });
                 })

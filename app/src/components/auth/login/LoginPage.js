@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {Formik} from "formik";
-import {login} from '../../../services/auth';
 import {submitForm} from "../../../services/forms";
 import validate from './validate';
 import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
-import {setCurrentUser} from "../../../store/actions/auth";
-import {hasCurrentUser} from '../../../store/selectors/auth';
+import {setCurrentUser} from "../../../actions/auth";
+import {getCurrentUser} from '../../../store/selectors/auth';
 import {Redirect} from "react-router-dom";
 
 class LoginPage extends Component {
@@ -20,15 +19,16 @@ class LoginPage extends Component {
     }
 
     handleSubmit(values, actions) {
-        submitForm(login, values, actions)
+        submitForm('/auth/login', values, actions)
             .then(data => this.props.setCurrentUser(data))
             .catch(error => {
             });
     }
 
     render() {
-
-        if (this.props.hasCurrentUser) return <Redirect to="/"/>;
+        if (this.props.hasCurrentUser) {
+            return <Redirect to="/"/>;
+        }
         return (
             <div className="form-page">
                 <Formik
@@ -44,7 +44,7 @@ class LoginPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        hasCurrentUser: hasCurrentUser(state),
+        hasCurrentUser: Boolean(getCurrentUser(state)),
     };
 };
 

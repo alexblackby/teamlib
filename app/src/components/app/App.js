@@ -7,12 +7,12 @@ import Auth from "../auth/Auth";
 const App = (props) => (
     <Switch location={props.location}>
         {map(routes, (route, key) => {
-            const {path, needAuth} = route;
+            const {path, needAuth, needBookspace} = route;
             const RouteLayout = route.layout;
             const RouteComponent = route.component;
             return (
                 <Route exact path={path} key={key} render={(props) => (
-                    <Auth needAuth={needAuth}>
+                    <Auth needAuth={needAuth} needBookspace={needBookspace}>
                         <RouteLayout {...props}>
                             <RouteComponent {...props} />
                         </RouteLayout>
