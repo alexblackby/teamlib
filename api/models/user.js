@@ -14,6 +14,11 @@ const schema = new mongoose.Schema({
     timezone: String,
 });
 
+
+schema.methods.getFirstName = function() {
+    return this.name.substr(0, this.name.indexOf(' '));
+};
+
 schema.methods.getBookspace = function() {
     if (!this.bookspace_id) {
         return Promise.resolve();

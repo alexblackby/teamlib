@@ -21,6 +21,13 @@ const Auth = (props) => {
     {
         return <Redirect to="/bookspace/select"/>;
     }
+
+    const showOnBoarding = Boolean(props.bookspace && props.bookspace.show_onboarding);
+    const isOwner = Boolean(props.user && props.bookspace && props.bookspace.owner_id === props.user._id);
+    if (props.route.path === '/' && showOnBoarding && isOwner)
+    {
+        return <Redirect to="/bookspace/welcome"/>;
+    }
     return props.children;
 };
 

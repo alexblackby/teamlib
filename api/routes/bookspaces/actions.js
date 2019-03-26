@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const User = require('../../models/user');
 const Bookspace = require('../../models/bookspace');
 const validationHandler = require('../../middleware/validationHandler');
@@ -18,15 +19,15 @@ exports.post = [
     createValidator,
     validationHandler,
     (req, res, next) => {
-        const {url, name} = req.body;
-
-        let newItem = new Bookspace({
+        const {subdomain, name} = req.body;
+        const newItem = new Bookspace({
             name,
-            url,
+            subdomain,
             owner_id: req.currentUser._id,
             lang: 'en',
+            invite_codes: [crypto.randomBytes(4).toString('hex')],
+            show_onboarding: true,
         });
-
         newItem.save()
             .then(setUserBookspace(req.currentUser._id))
             .then(({bookspace, user}) => res.json({

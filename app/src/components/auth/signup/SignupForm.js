@@ -12,7 +12,7 @@ const SignupForm = (props) => {
             <FormPageInput
                 name="email"
                 label="EMAIL:"
-                placeholder="Your work email..."
+                placeholder="Your corporate email..."
                 autoComplete="email"
                 disabled={isSubmitting}
             />

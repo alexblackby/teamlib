@@ -10,6 +10,7 @@ import SimpleLayout from "../components/layout/SimpleLayout";
 import BookspaceSelectPage from "../components/bookspace/select/BookspaceSelectPage";
 import BookspaceCreatePage from "../components/bookspace/create/BookspaceCreatePage";
 import LogoutPage from "../components/auth/logout/LogoutPage";
+import BookspaceOnboardingPage from "../components/bookspace/onboarding/BookspaceOnboardingPage";
 
 const routeDefaults = {
     layout: CatalogLayout,
@@ -68,8 +69,12 @@ const routes = [
         component: BookspaceCreatePage,
         layout: SimpleLayout,
         needBookspace: false,
-    }
-
+    },
+    {
+        path: '/bookspace/welcome',
+        component: BookspaceOnboardingPage,
+        layout: SimpleLayout,
+    },
 ];
 
 

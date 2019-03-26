@@ -12,11 +12,13 @@ const mongoose = require("mongoose");
  * - one_place (like "reception")
  */
 const schema = new mongoose.Schema({
-    url: {type: String, index: true, unique: true},
     name: String,
+    subdomain: {type: String, index: true, unique: true},
     lang: String,
     owner_id: mongoose.Schema.Types.ObjectId,
     is_active: {type: Boolean, default: true},
+    invite_codes: [String],
+    show_onboarding: Boolean,
 });
 
 

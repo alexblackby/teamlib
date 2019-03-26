@@ -27,11 +27,11 @@ export const refreshAuth = () => (dispatch) => {
 };
 
 export const setCurrentUser = ({user, token, bookspace}) => {
-    const needToChangeSubdomain = Boolean(bookspace && bookspace.url !== getSubDomain());
+    const needToChangeSubdomain = Boolean(bookspace && bookspace.subdomain !== getSubDomain());
     if (needToChangeSubdomain) {
         // Set short-live cookie to transfer authorization to another subdomain
         document.cookie = "token=" + token + ";domain=" + getMainDomain() + ";path=/;max-age=60";
-        window.location.assign('//' + bookspace.url + '.' + getMainDomain());
+        window.location.assign('//' + bookspace.subdomain + '.' + getMainDomain());
     } else {
         return {
             type: authConstants.SET_CURRENT_USER,

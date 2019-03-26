@@ -12,7 +12,7 @@ const App = (props) => (
             const RouteComponent = route.component;
             return (
                 <Route exact path={path} key={key} render={(props) => (
-                    <Auth needAuth={needAuth} needBookspace={needBookspace}>
+                    <Auth needAuth={needAuth} needBookspace={needBookspace} route={route}>
                         <RouteLayout {...props}>
                             <RouteComponent {...props} />
                         </RouteLayout>

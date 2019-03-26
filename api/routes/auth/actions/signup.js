@@ -35,7 +35,7 @@ const generatePasswordHash = async (password) => {
 };
 
 const findBookspace = async (subdomain) => {
-    return Bookspace.findOne({url: subdomain});
+    return Bookspace.findOne({subdomain});
 };
 
 const saveUser = async ({name, email, passwordHash, bookspace}) => {

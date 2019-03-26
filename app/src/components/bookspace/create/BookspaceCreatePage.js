@@ -18,8 +18,8 @@ class BookspaceSelectPage extends Component {
     }
 
     handleSubmit(values, actions) {
-        const url = this.generateSubdomain(values.name);
-        const payload = {...values, url};
+        const subdomain = this.generateSubdomain(values.name);
+        const payload = {...values, subdomain};
         submitForm('/api/bookspaces', payload, actions)
             .then(data => {
                 this.props.refreshAuth();
