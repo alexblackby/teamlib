@@ -19,12 +19,22 @@ const addAuthHeader = (config) => {
 
 const request = ({method, url, data, config}) => {
     config = addAuthHeader({...defaultConfig, ...config});
-    return axios({
+    const options = {
         method,
         url,
         data,
         ...config
-    });
+    };
+    return axios(options)
+        .then((response) => {
+            return new Promise((resolve, reject) => {
+                if (response.data && response.data.success) {
+                    resolve(response.data.data);
+                } else {
+                    reject(response);
+                }
+            });
+        });
 };
 
 const post = (url, data, config = {}) => {

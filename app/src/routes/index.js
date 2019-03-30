@@ -11,6 +11,9 @@ import BookspaceSelectPage from "../components/bookspace/select/BookspaceSelectP
 import BookspaceCreatePage from "../components/bookspace/create/BookspaceCreatePage";
 import LogoutPage from "../components/auth/logout/LogoutPage";
 import BookspaceOnboardingPage from "../components/bookspace/onboarding/BookspaceOnboardingPage";
+import InvitePage from "../components/auth/invite/InvitePage";
+import GetStartedPage from "../components/auth/getstarted/GetStartedPage";
+import InvitedPage from "../components/auth/invite/InvitedPage";
 
 const routeDefaults = {
     layout: CatalogLayout,
@@ -19,37 +22,6 @@ const routeDefaults = {
 };
 
 const routes = [
-    {
-        path: '/login',
-        component: LoginPage,
-        layout: SimpleLayout,
-        needAuth: false,
-    },
-    {
-        path: '/logout',
-        component: LogoutPage,
-        layout: SimpleLayout,
-        needAuth: true,
-        needBookspace: false,
-    },
-    {
-        path: '/signup',
-        component: SignupPage,
-        layout: SimpleLayout,
-        needAuth: false,
-    },
-    {
-        path: '/need-verification',
-        component: NeedVerificationPage,
-        layout: SimpleLayout,
-        needAuth: false,
-    },
-    {
-        path: '/verify/:userid/:code',
-        component: VerifyPage,
-        layout: SimpleLayout,
-        needAuth: false,
-    },
     {
         path: '/',
         component: CatalogPage,
@@ -75,6 +47,54 @@ const routes = [
         component: BookspaceOnboardingPage,
         layout: SimpleLayout,
     },
+    {
+        path: '/login',
+        component: LoginPage,
+        layout: SimpleLayout,
+        needAuth: false,
+    },
+    {
+        path: '/logout',
+        component: LogoutPage,
+        layout: SimpleLayout,
+        needAuth: true,
+        needBookspace: false,
+    },
+    {
+        path: '/getstarted/:mode?',
+        component: GetStartedPage,
+        layout: SimpleLayout,
+        needAuth: false,
+    },
+    {
+        path: '/signup',
+        component: SignupPage,
+        layout: SimpleLayout,
+        needAuth: false,
+    },
+    {
+        path: '/need-verification',
+        component: NeedVerificationPage,
+        layout: SimpleLayout,
+        needAuth: false,
+    },
+    {
+        path: '/verify/:userid/:code',
+        component: VerifyPage,
+        layout: SimpleLayout,
+        needAuth: false,
+    },
+    {
+        path: '/invite/:code',
+        component: InvitePage,
+        layout: SimpleLayout,
+        needAuth: false,
+    },
+    {
+        path: '/invited',
+        component: InvitedPage,
+        layout: SimpleLayout,
+    }
 ];
 
 

@@ -10,9 +10,11 @@ body, input, select, textarea, button {
     font-size: 15px;
 }
 
-a {
+a,
+.linkLike {
     color: #5c32bb;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .fl {
@@ -96,6 +98,14 @@ a:hover,
     padding: 24px 18px 20px 10px;
 }
 
+.vpad-small {
+    padding: 0 0 8px;
+}
+
+.vpad-big {
+    padding: 0 0 30px;
+}
+
 a.logo {
     color: #444;
     font-family: 'Fira Sans', sans-serif;
@@ -109,6 +119,17 @@ a.logo {
 
 a.logo:hover {
     color: #444 !important;
+}
+
+.inputAutoselect {
+    width: 90%;
+    padding:10px;
+    border:1px solid #ccc;
+    background: #eee;
+}
+
+.inputAutoselect:focus {
+    outline:none;
 }
 
 .calendar {
@@ -544,6 +565,7 @@ textarea.input-text {
 .form-page-legend {
     margin-bottom: 40px;
     font-size: 16px;
+    line-height: 24px;
 }
 
 .form-page-line {

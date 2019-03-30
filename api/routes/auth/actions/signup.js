@@ -10,11 +10,11 @@ const signup = (config) => [
     signupValidator(config),
     validationHandler,
     async (req, res, next) => {
-        const {email, password, name, subdomain} = req.body;
+        const {email, password, name, subdomain, invite} = req.body;
         try {
             const passwordHash = await generatePasswordHash(password);
-            const bookspace = await findBookspace(subdomain);
-            const user = await saveUser({name, email, passwordHash, bookspace});
+            const bookspace = await findBookspace(subdomain, invite);
+            const user = await createUser({name, email, passwordHash, bookspace});
             await sendVerificationMail(config.mail)({user, bookspace});
             res.json({
                 success: true,
@@ -34,11 +34,11 @@ const generatePasswordHash = async (password) => {
     });
 };
 
-const findBookspace = async (subdomain) => {
-    return Bookspace.findOne({subdomain});
+const findBookspace = async (subdomain, code) => {
+    return Bookspace.findOne({subdomain, invite_codes: code});
 };
 
-const saveUser = async ({name, email, passwordHash, bookspace}) => {
+const createUser = async ({name, email, passwordHash, bookspace}) => {
     const user = new User({
         email,
         password: passwordHash,

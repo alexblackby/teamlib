@@ -9,7 +9,7 @@ const SimpleLayout = (props) => {
         {to: '/logout', title: 'Log out'},
     ];
     const menuGuest = [
-        {to: '/signup', title: 'Get started'},
+        {to: '/getstarted', title: 'Get started'},
         {to: '/login', title: 'Log in'},
     ];
     const menuItems = Boolean(props.user) ? menuUser : menuGuest;

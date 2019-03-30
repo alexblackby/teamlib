@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import get from 'lodash/get';
 import {Link, Redirect} from "react-router-dom";
 import {postFormData} from "../../../services/forms";
-import {setCurrentUser} from "../../../actions/auth";
+import {setCurrentUser} from "../../../store/actions/auth";
 import {connect} from "react-redux";
 
 
@@ -20,7 +20,7 @@ class VerifyPage extends Component {
     componentDidMount() {
         const verifyParams = get(this.props, 'match.params');
         this.setState({inProgress: true});
-        postFormData('http://localhost:8080/auth/verify', verifyParams)
+        postFormData('/auth/verify', verifyParams)
             .then(data => {
                 this.setState({inProgress: false, success: true});
                 this.props.setCurrentUser(data);

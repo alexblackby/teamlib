@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
 
-/**
- * types of signup_policy
- * + by_domain
- * - by_whitelist
- * - by_secret_link
- *
- * types of book_policy
- * + many_to_many
- * - one_person (like "librarian")
- * - one_place (like "reception")
- */
 const schema = new mongoose.Schema({
     name: String,
     subdomain: {type: String, index: true, unique: true},
@@ -21,5 +10,24 @@ const schema = new mongoose.Schema({
     show_onboarding: Boolean,
 });
 
+schema.methods.checkAccess = function(actionName, user) {
+    if (actionName === 'read') {
+        return user.bookspace_id && user.bookspace_id === this._id ? Promise.resolve() : Promise.reject();
+    }
+    if (actionName === 'update') {
+        return this.owner_id === user._id ? Promise.resolve() : Promise.reject();
+    }
+    return Promise.reject();
+};
+
+
+schema.methods.getDataForAPI = function() {
+    return {
+        _id: this._id,
+        name: this.name,
+        subdomain: this.subdomain,
+        show_onboarding: this.show_onboarding ? true : undefined,
+    };
+};
 
 module.exports = mongoose.model("bookspaces", schema);

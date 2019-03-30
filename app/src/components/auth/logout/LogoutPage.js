@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {getCurrentUser} from '../../../store/selectors/auth';
-import {logout} from "../../../actions/auth";
+import {logout} from "../../../store/actions/auth";
 
 class LogoutPage extends Component {
 

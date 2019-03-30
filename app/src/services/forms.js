@@ -21,13 +21,7 @@ const parseErrorResponse = (error) => {
 export const postFormData = (url, data) => {
     return new Promise((resolve, reject) => {
         apiActions.post(url, data)
-            .then(response => {
-                if (response.data && response.data.success) {
-                    resolve(response.data.data);
-                } else {
-                    reject(parseErrorResponse({response}));
-                }
-            })
+            .then(response => resolve(response))
             .catch(error => {
                 reject(parseErrorResponse(error));
             });
@@ -36,7 +30,7 @@ export const postFormData = (url, data) => {
 
 export const submitForm = (url, values, actions) => {
     actions.setStatus({});
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         postFormData(url, values)
             .then(data => {
                 actions.setSubmitting(false);

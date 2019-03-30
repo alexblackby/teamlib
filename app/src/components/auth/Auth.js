@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {getCurrentUser, getCurrentBookspace} from '../../store/selectors/auth';
-import {refreshAuth, setTokenFromCookie} from "../../actions/auth";
+import {refreshAuth, setTokenFromCookie} from "../../store/actions/auth";
 import {getCookie} from "../../utils/helpers";
 
 const Auth = (props) => {

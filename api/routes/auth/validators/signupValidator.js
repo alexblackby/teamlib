@@ -17,7 +17,7 @@ module.exports = (config) => {
             return userModel.findOne({email: value})
                 .then(user => {
                     if (user) {
-                        return Promise.reject('This e-mail is already in use.');
+                        return Promise.reject('This e-mail is already in use. If it is your account you should log in.');
                     } else {
                         return Promise.resolve();
                     }

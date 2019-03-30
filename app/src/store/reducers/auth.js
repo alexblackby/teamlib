@@ -4,6 +4,7 @@ const initialState = {
     user: null,
     bookspace: null,
     token: null,
+    invite: {},
     refreshInProgress: false,
 };
 
@@ -33,6 +34,19 @@ const auth = (state = initialState, action) => {
     }
     if (action.type === authConstants.LOGOUT) {
         return Object.assign({}, initialState);
+    }
+    if (action.type === authConstants.SET_INVITE) {
+        return Object.assign({}, state, {
+            invite: {
+                code: action.code,
+                name: action.name,
+            }
+        });
+    }
+    if (action.type === authConstants.CLEAR_INVITE) {
+        return Object.assign({}, state, {
+            invite: {},
+        });
     }
     return state;
 };

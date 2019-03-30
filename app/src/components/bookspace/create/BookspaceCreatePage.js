@@ -6,7 +6,7 @@ import {getCurrentUserFirstName} from "../../../store/selectors/auth";
 import {connect} from "react-redux";
 import {submitForm} from "../../../services/forms";
 import urlSlug from 'url-slug';
-import {refreshAuth} from "../../../actions/auth";
+import {refreshAuth} from "../../../store/actions/auth";
 
 class BookspaceSelectPage extends Component {
     constructor(props) {

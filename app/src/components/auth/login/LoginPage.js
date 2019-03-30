@@ -4,9 +4,10 @@ import {submitForm} from "../../../services/forms";
 import validate from './validate';
 import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
-import {setCurrentUser} from "../../../actions/auth";
+import {clearInvite, setCurrentUser} from "../../../store/actions/auth";
 import {getCurrentUser} from '../../../store/selectors/auth';
 import {Redirect} from "react-router-dom";
+import {getSubDomain} from "../../../utils/helpers";
 
 class LoginPage extends Component {
     constructor(props) {
@@ -19,7 +20,13 @@ class LoginPage extends Component {
     }
 
     handleSubmit(values, actions) {
+        values.invite = this.props.invite ? this.props.invite.code : undefined;
+        values.subdomain = getSubDomain();
         submitForm('/auth/login', values, actions)
+            .then(data => {
+                this.props.clearInvite();
+                return data;
+            })
             .then(data => this.props.setCurrentUser(data))
             .catch(error => {
             });
@@ -45,11 +52,13 @@ class LoginPage extends Component {
 const mapStateToProps = (state) => {
     return {
         hasCurrentUser: Boolean(getCurrentUser(state)),
+        invite: state.auth.invite,
     };
 };
 
 const mapDispatchToProps = {
-    setCurrentUser
+    setCurrentUser,
+    clearInvite,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

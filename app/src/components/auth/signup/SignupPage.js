@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Formik} from "formik";
 import {submitForm} from '../../../services/forms';
 import validate from '../signup/validate';
 import SignupForm from "./SignupForm";
-
+import {connect} from "react-redux";
+import Form from "../../common/Form";
+import {clearInvite} from "../../../store/actions/auth";
 
 class SignupPage extends Component {
     constructor(props) {
@@ -16,14 +17,17 @@ class SignupPage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    addSubdomain(values) {
-        const hostnameParts = window.location.hostname.split('.');
-        return {...values, subdomain: (hostnameParts.length > 2) ? hostnameParts[0] : undefined};
-    }
-
     handleSubmit(values, actions) {
-        values = this.addSubdomain(values);
+        const {invite} = this.props;
+        values = addSubdomain(values);
+        if (invite && invite.code) {
+            values.invite = invite.code;
+        }
         submitForm('/auth/signup', values, actions)
+            .then(data => {
+                this.props.clearInvite();
+                return data;
+            })
             .then(data => this.props.history.push('/need-verification', {email: data.user.email}))
             .catch(error => {});
     }
@@ -31,15 +35,32 @@ class SignupPage extends Component {
     render() {
         return (
             <div className="form-page">
-                <Formik
+                <Form
+                    component={SignupForm}
+                    validate={validate}
                     initialValues={this.initialValues}
                     onSubmit={this.handleSubmit}
-                    validate={validate}
-                    component={SignupForm}
+                    invite={this.props.invite}
+                    onClearInvite={this.props.clearInvite}
                 />
             </div>
         );
     }
 }
 
-export default SignupPage;
+const addSubdomain = (values) => {
+    const hostnameParts = window.location.hostname.split('.');
+    return {...values, subdomain: (hostnameParts.length > 2) ? hostnameParts[0] : undefined};
+};
+
+const mapStateToProps = (state) => {
+    return {
+        invite: state.auth.invite,
+    };
+};
+
+const mapDispatchToProps = {
+    clearInvite,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupPage);
