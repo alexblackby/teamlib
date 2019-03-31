@@ -9,7 +9,7 @@ const authConfig = {
     },
     jwt: {
         secret: process.env.JWT_SECRET,
-        expires: process.env.JWT_EXPIRES,
+        expires: process.env.JWT_EXPIRES_MINUTES,
     },
 };
 

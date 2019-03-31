@@ -10,9 +10,13 @@ export const loadState = () => {
     }
 };
 
-export const saveState = (state) => {
+export const saveState = (getState) => {
     try {
-        const serializedState = JSON.stringify(state);
+        const state = getState();
+        const stateToSave = {
+            auth: state.auth,
+        };
+        const serializedState = JSON.stringify(stateToSave);
         localStorage.setItem('state', serializedState);
     } catch (err) {
 

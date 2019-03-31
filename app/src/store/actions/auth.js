@@ -1,4 +1,4 @@
-import {authConstants} from "../constants";
+import {authConstants} from "../constants/constants";
 import apiActions from '../../services/apiActions';
 import {deleteCookie, getCookie, getMainDomain, getSubDomain, setCookie} from "../../utils/helpers";
 
