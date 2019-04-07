@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 import {submitForm} from '../../../services/forms';
 import validate from '../signup/validate';
 import SignupForm from "./SignupForm";
-import {connect} from "react-redux";
 import Form from "../../common/Form";
 import {clearInvite} from "../../../store/actions/auth";
+import {doNothing, getSubdomain} from "../../../utils/helpers";
 
 class SignupPage extends Component {
     constructor(props) {
@@ -15,11 +16,12 @@ class SignupPage extends Component {
             password: '',
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onClickOpenId = this.onClickOpenId.bind(this);
     }
 
     handleSubmit(values, actions) {
         const {invite} = this.props;
-        values = addSubdomain(values);
+        values.subdomain = getSubdomain();
         if (invite && invite.code) {
             values.invite = invite.code;
         }
@@ -29,10 +31,17 @@ class SignupPage extends Component {
                 return data;
             })
             .then(data => this.props.history.push('/need-verification', {email: data.user.email}))
-            .catch(error => {});
+            .catch(doNothing);
+    }
+
+    onClickOpenId(provider) {
+        return () => {
+            this.props.history.push('/openid/' + provider + '/start');
+        }
     }
 
     render() {
+        console.log(this.state);
         return (
             <div className="form-page">
                 <Form
@@ -42,16 +51,12 @@ class SignupPage extends Component {
                     onSubmit={this.handleSubmit}
                     invite={this.props.invite}
                     onClearInvite={this.props.clearInvite}
+                    onClickOpenId={this.onClickOpenId}
                 />
             </div>
         );
     }
 }
-
-const addSubdomain = (values) => {
-    const hostnameParts = window.location.hostname.split('.');
-    return {...values, subdomain: (hostnameParts.length > 2) ? hostnameParts[0] : undefined};
-};
 
 const mapStateToProps = (state) => {
     return {

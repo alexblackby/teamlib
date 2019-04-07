@@ -9,8 +9,8 @@ module.exports = (config) => {
         check('name')
             .exists().withMessage('Enter your full name.')
             .matches(/[\p{L}.'-]+ [\p{L} .'-]+/u).withMessage('Enter your first and last name.')
-            .isLength({min: 5}).withMessage('Username should be minimum 5 characters long.')
-            .isLength({max: 30}).withMessage('Username should be no longer than 30 characters.'),
+            .isLength({min: 5}).withMessage('Name should be minimum 5 characters long.')
+            .isLength({max: 50}).withMessage('Name should be no longer than 50 characters.'),
         check('password')
             .isLength({min: 5, max: 50}).withMessage('Password should be minimum 5 characters long.'),
         body('email').custom(value => {

@@ -5,7 +5,14 @@ import {Link} from "react-router-dom";
 import {Field} from "formik";
 
 const SignupForm = (props) => {
-    const {handleSubmit, isSubmitting, status, invite, onClearInvite} = props;
+    const {handleSubmit, onClickOpenId, isSubmitting, status, invite, onClearInvite} = props;
+    const openIdButton = () => {
+        return (
+            <div className="openid-microsoft" onClick={onClickOpenId('microsoft')}>
+                Sign up with your Microsoft account
+            </div>
+        );
+    };
     return (
         <form className="form-page-form" onSubmit={handleSubmit}>
             <h1 className="form-page-header">Create account</h1>
@@ -14,8 +21,6 @@ const SignupForm = (props) => {
                     ?
                     <div>
                         After signup you will join <b>"{invite.name}"</b> bookspace.<br/>
-                        If you want to create a new bookspace
-                        instead, <span className="linkLike" onClick={onClearInvite}>click here</span>.
                     </div>
                     :
                     <div>
@@ -30,6 +35,7 @@ const SignupForm = (props) => {
                 placeholder="Your corporate email..."
                 autoComplete="email"
                 disabled={isSubmitting}
+                labelRightRender={openIdButton}
             />
             <FormPageInput
                 name="name"

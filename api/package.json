@@ -23,7 +23,8 @@
     "lodash.get": "^4.4.2",
     "lodash.map": "^4.6.0",
     "mongoose": "^5.4.6",
-    "nodemailer": "^5.1.1"
+    "nodemailer": "^5.1.1",
+    "openid-client": "^2.4.5"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

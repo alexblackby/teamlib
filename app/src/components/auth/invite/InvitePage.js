@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import apiActions from "../../../services/apiActions";
-import {getSubDomain} from "../../../utils/helpers";
+import {getSubdomain} from "../../../utils/helpers";
 import {setInvite, refreshAuth} from "../../../store/actions/auth";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
@@ -17,13 +17,15 @@ class InvitePage extends Component {
 
     componentDidMount() {
         const {code} = this.state;
-        const subdomain = getSubDomain();
+        const subdomain = getSubdomain();
         apiActions.get(`/auth/${subdomain}/invites/${code}`)
             .then(data => {
                 if (this.props.user) {
+                    // set bookspace from invite to already rigistred user
                     apiActions.put(`/auth/${subdomain}/invites/${code}`)
                         .then(() => this.props.refreshAuth());
                 } else {
+                    // save invite for future registration
                     this.props.setInvite(code, data.bookspace.name);
                 }
             })

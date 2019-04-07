@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {getCurrentUserFirstName} from "../../../store/selectors/auth";
-import {getMainDomain, getSubDomain} from "../../../utils/helpers";
+import {getMainDomain, getSubdomain} from "../../../utils/helpers";
 
 class BookspaceSelectPage extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class BookspaceSelectPage extends Component {
     render() {
         const {mode} = this.state;
         const goToCreatePage = () => this.props.history.push('/bookspace/create');
-        const subdomain = getSubDomain();
+        const subdomain = getSubdomain();
         const domain = getMainDomain();
         const sampleUrl = `http://${subdomain === 'app' ? 'your-company' : subdomain}.${domain}/invite/abc12345`;
         return (

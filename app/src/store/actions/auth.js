@@ -1,6 +1,6 @@
 import {authConstants} from "../constants/constants";
 import apiActions from '../../services/apiActions';
-import {deleteCookie, getCookie, getMainDomain, getSubDomain, setCookie} from "../../utils/helpers";
+import {deleteCookie, getCookie, getMainDomain, getSubdomain, setCookie, timeInSeconds} from "../../utils/helpers";
 
 export const setTokenFromCookie = () => {
     const token = getCookie('token');
@@ -18,10 +18,11 @@ export const refreshAuth = () => (dispatch) => {
 };
 
 export const setCurrentUser = ({user, token, bookspace}) => {
-    const needToChangeSubdomain = Boolean(bookspace && bookspace.subdomain !== getSubDomain());
+    console.log({user, token, bookspace});
+    const needToChangeSubdomain = Boolean(bookspace && bookspace.subdomain !== getSubdomain());
     if (needToChangeSubdomain) {
         // Set short-live cookie to transfer authorization to another subdomain
-        setCookie('token', token, 60);
+        setCookie('token', token, timeInSeconds.minute);
         window.location.assign('//' + bookspace.subdomain + '.' + getMainDomain());
     } else {
         return {
@@ -40,6 +41,7 @@ export const logout = () => {
 };
 
 export const setInvite = (code, name) => {
+    setCookie('invite', code, timeInSeconds.hour);
     return {
         type: authConstants.SET_INVITE,
         code,

@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {clearInvite, setCurrentUser} from "../../../store/actions/auth";
 import {getCurrentUser} from '../../../store/selectors/auth';
 import {Redirect} from "react-router-dom";
-import {getSubDomain} from "../../../utils/helpers";
+import {doNothing, getSubdomain} from "../../../utils/helpers";
 
 class LoginPage extends Component {
     constructor(props) {
@@ -21,15 +21,14 @@ class LoginPage extends Component {
 
     handleSubmit(values, actions) {
         values.invite = this.props.invite ? this.props.invite.code : undefined;
-        values.subdomain = getSubDomain();
+        values.subdomain = getSubdomain();
         submitForm('/auth/login', values, actions)
             .then(data => {
                 this.props.clearInvite();
                 return data;
             })
             .then(data => this.props.setCurrentUser(data))
-            .catch(error => {
-            });
+            .catch(doNothing);
     }
 
     render() {

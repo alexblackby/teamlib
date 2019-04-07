@@ -14,6 +14,8 @@ import BookspaceOnboardingPage from "../components/bookspace/onboarding/Bookspac
 import InvitePage from "../components/auth/invite/InvitePage";
 import GetStartedPage from "../components/auth/getstarted/GetStartedPage";
 import InvitedPage from "../components/auth/invite/InvitedPage";
+import OpenIdStart from "../components/auth/openid/OpenIdStart";
+import OpenIdCallback from "../components/auth/openid/OpenIdCallback";
 
 const routeDefaults = {
     layout: CatalogLayout,
@@ -94,7 +96,19 @@ const routes = [
         path: '/invited',
         component: InvitedPage,
         layout: SimpleLayout,
-    }
+    },
+    {
+        path: '/openid/:provider/start',
+        component: OpenIdStart,
+        layout: SimpleLayout,
+        needAuth: false,
+    },
+    {
+        path: '/openid/:provider/callback',
+        component: OpenIdCallback,
+        layout: SimpleLayout,
+        needAuth: false,
+    },
 ];
 
 

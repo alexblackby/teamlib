@@ -132,6 +132,24 @@ a.logo:hover {
     outline:none;
 }
 
+.black-link {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.openid-microsoft {
+    background: #f7f7f7 url(/img/openid-microsoft.png) 5px 5px no-repeat;
+    height: 20px;
+    padding: 5px 10px 5px 35px;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 13px;
+}
+
 .calendar {
     background: url(/img/calendar.png) 100% 2px no-repeat;
     padding: 0 24px 0 5px;

@@ -1,4 +1,4 @@
-const loadBookspaceFromInvite = require('../middleware/loadBookspaceFromInvite');
+const loadBookspaceFromInvite = require('../../middleware/loadBookspaceFromInvite');
 
 const checkInvite = [
     loadBookspaceFromInvite,

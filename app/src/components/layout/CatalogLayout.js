@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {getCurrentUser} from "../../store/selectors/auth";
+import {connect} from "react-redux";
 
-const CatalogLayout = ({children}) => {
+const CatalogLayout = ({children, user}) => {
     return (
         <div className="container">
             <div className="header clearfix">
@@ -16,7 +18,7 @@ const CatalogLayout = ({children}) => {
                 <div className="nav">
                     <div className="nav-userinfo clearfix">
                         <img src="/img/avatar.png"/>
-                        <div className="username">Denis<br/>Abramov</div>
+                        <div className="username">{user.name}</div>
                         <div className="tri-down"></div>
                     </div>
                     <ul className="nav-actions ul-nav ">
@@ -42,4 +44,10 @@ const CatalogLayout = ({children}) => {
     );
 };
 
-export default CatalogLayout;
+const mapStateToProps = (state) => {
+    return {
+        user: getCurrentUser(state),
+    };
+};
+
+export default connect(mapStateToProps)(CatalogLayout);

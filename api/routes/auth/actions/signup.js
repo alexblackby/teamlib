@@ -1,10 +1,7 @@
-const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
+const {createUser, findBookspace, generatePasswordHash} = require('../services/auth');
 const validationHandler = require('../middleware/validationHandler');
 const signupValidator = require('../validators/signupValidator');
 const sendVerificationMail = require('../services/sendVerificationMail');
-const Bookspace = require('../../../models/bookspace');
-const User = require('../../../models/user');
 
 const signup = (config) => [
     signupValidator(config),
@@ -25,31 +22,5 @@ const signup = (config) => [
         }
     }
 ];
-
-const generatePasswordHash = async (password) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.hash(password, 8, function (err, passwordHash) {
-            return err ? reject(err) : resolve(passwordHash);
-        });
-    });
-};
-
-const findBookspace = async (subdomain, code) => {
-    return Bookspace.findOne({subdomain, invite_codes: code});
-};
-
-const createUser = async ({name, email, passwordHash, bookspace}) => {
-    const user = new User({
-        email,
-        password: passwordHash,
-        name,
-        bookspace_id: bookspace ? bookspace._id : null,
-        email_verification: {
-            is_verified: false,
-            code: crypto.randomBytes(4).toString('hex'),
-        },
-    });
-    return user.save();
-};
 
 module.exports = signup;

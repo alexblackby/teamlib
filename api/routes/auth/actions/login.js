@@ -3,9 +3,7 @@ const checkUserIsActive = require('../middleware/checkUserIsActive');
 const checkEmailIsVerified = require('../middleware/checkEmailIsVerified');
 const loginValidator = require('../validators/loginValidator');
 const loadBookspace = require('../middleware/loadBookspace');
-const generateToken = require('../services/generateToken');
-const responseAuthData = require('../services/responseAuthData');
-const Bookspace = require("../../../models/bookspace");
+const {responseAuthData, findBookspace} = require('../services/auth');
 
 const login = (config) => [
     loginValidator(config),
@@ -18,14 +16,14 @@ const login = (config) => [
         let bookspace = req.currentBookspace;
         try {
             if (invite && !bookspace) {
-                bookspace = await Bookspace.findOne({subdomain, invite_codes: invite});
+                // if user uses invite link after he was registred - we save bookspace from invite to user's profile
+                bookspace = await findBookspace(subdomain, invite);
                 if (bookspace) {
                     user.bookspace_id = bookspace._id;
                     await user.save();
                 }
             }
-            const token = await generateToken(user, config);
-            responseAuthData(res, {user, bookspace, token});
+            return responseAuthData(res, user, config);
         } catch (err) {
             next(err);
         }

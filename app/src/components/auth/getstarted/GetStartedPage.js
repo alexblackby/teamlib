@@ -49,7 +49,7 @@ class GetStartedPage extends Component {
                         <h1 className="form-page-header">Join existing bookspace</h1>
                         <div className="form-page-legend">
                             To join existing bookspace you need an invite.<br/>
-                            You can ask any member of your bookspace to send you invite link.
+                            You can ask administrator or any member of desired bookspace to send you invite link.
                         </div>
                     </>}
                 </div>

@@ -1,12 +1,11 @@
 var mongoose = require('mongoose');
 
-const connect = () => {
-    mongoose.connect('mongodb://mongo/'+process.env.MONGO_DB, {useNewUrlParser: true, useCreateIndex: true});
-
-    mongoose.connection.on("connected", () => console.log("MongoDB: connected to the database"));
+exports.initMongoDb = new Promise((resolve, reject) => {
+    mongoose.connect('mongodb://mongo/' + process.env.MONGO_DB, {useNewUrlParser: true, useCreateIndex: true});
+    mongoose.connection.on("connected", resolve);
 
     mongoose.connection.on("error", (error) => {
-        console.error("MongoDB connection error: "+error);
+        console.error("MongoDB connection error: " + error);
         process.exit();
     });
 
@@ -15,12 +14,10 @@ const connect = () => {
         process.exit();
     });
 
-    process.on('SIGINT', function() {
+    process.on('SIGINT', function () {
         mongoose.connection.close(function () {
             console.log('MongoDB connection disconnected.');
             process.exit(0);
         });
     });
-};
-
-module.exports = connect;
+});

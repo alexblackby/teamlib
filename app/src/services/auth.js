@@ -1,4 +1,5 @@
 import {logout, refreshAuth} from "../store/actions/auth";
+import {getJWTPayload} from "../utils/helpers";
 
 /*
  Check the expiration of JWT token.
@@ -10,10 +11,7 @@ export const authWatchdog = (dispatch, getState) => {
     const token = state.auth.token;
     if (!token) return;
 
-    const payloadBase64 = token.split('.')[1];
-    if (!payloadBase64) return;
-
-    const payload = JSON.parse(atob(payloadBase64));
+    const payload = getJWTPayload(token);
     if (!payload) return;
 
     const secondsLeft = parseInt(payload.exp - (Date.now() / 1000));
